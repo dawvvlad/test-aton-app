@@ -1,0 +1,59 @@
+.auth-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+
+
+}
+
+.auth-page > h1 {
+    margin-top: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+.auth-page > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    
+    width: 100%;
+}
+
+.email, .pass {
+    width: 40%;
+    padding: 20px 40px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    background-color: rgb(52, 107, 107);
+    margin: 20px auto;
+}
+.submit-btn {
+    padding: 20px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    color: white;
+    font-size: 20px;
+    font-family: 'Montserrat';
+    background-color: rgb(65, 91, 173);
+    transition: .1s linear;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: rgb(82, 82, 228);
+}
+
+.submit-btn:active {
+    transform: scale(.98);
+}
