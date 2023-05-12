@@ -10,7 +10,8 @@ const initialValue = {
 }
 
 export const Context = ({ children }) => {
-    const [ state, dispatch ] = useReducer(reducer, initialValue)
+    const [ state, dispatch ] = useReducer(reducer, initialValue);
+    
     state.setIsAuth = (value) => {
         dispatch({ type: "SET_IS_AUTH", payload: value })
     }
