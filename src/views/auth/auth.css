@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: start;
 
-
+    animation: start-animation .2s linear;
 }
 
 .auth-page > h1 {
@@ -36,6 +36,8 @@
     font-size: 20px;
     background-color: rgb(52, 107, 107);
     margin: 20px auto;
+
+    transition: .1s linear;
 }
 .submit-btn {
     padding: 20px;
@@ -56,4 +58,9 @@
 
 .submit-btn:active {
     transform: scale(.98);
+}
+
+.login-error {
+    color: red;
+    border: 1px solid red;
 }

@@ -1,0 +1,28 @@
+.user-info:not(.title) {
+    margin: 5% 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-bottom: 5%;
+    border-bottom: 1px solid white;
+}
+.user-info > img {
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 5%;
+    font-family: 'Montserrat';
+}
+
+
+.mail__link {
+    color: rgb(83, 221, 210);
+    text-decoration: none;
+
+}

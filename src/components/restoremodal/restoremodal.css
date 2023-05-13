@@ -1,0 +1,58 @@
+.modal {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Montserrat';
+    animation: start-animation .1s linear;
+}
+
+.modal-window {
+    position: relative;
+    width: 50%;
+    background: linear-gradient(to bottom, rgb(46, 26, 26), rgb(39, 39, 39));
+    margin: 0 auto;
+
+    padding: 5%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 0 10px white;
+
+    border-radius: 20px;
+}
+
+.modal-window-logins {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.modal-window-logins > h2 {
+    text-transform: uppercase;
+}
+
+.modal-window-logins > p {
+    color: red;
+    margin: 0 0 20px 0;
+}
+
+.modal-window-logins > li {
+    margin: 10px 0;
+    text-align-last: left;
+}
+
+.modal-window > span {
+    font-size: 30px;
+
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}

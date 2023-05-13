@@ -17,11 +17,25 @@ code {
 }
 
 .container {
-  width: 100%;
+  width: 80%;
   min-height: 100vh;
+  margin: 0 auto;
+  animation: start-animation .2s linear;
 }
 
 h1 {
   color: white;
   font-family: 'Montserrat';
+  margin: 0;
+}
+
+
+@keyframes start-animation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

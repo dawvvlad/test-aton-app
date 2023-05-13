@@ -6,21 +6,26 @@ import { UserPage } from "./views/userpage/UserPage";
 import { Context } from "./context/Context";
 import { PageNotFound } from "./views/pagenotfound/PageNotFound";
 import { Layout } from "./common/Layout";
-
+import { RestoreModal } from "./components/restoremodal/RestoreModal";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 function App() {
   return (
     <Context> 
+      
+      <ToastContainer />
       <Router>
         <Routes>
           {/* Страница не найдена (некорректный URL) */}
           <Route path="*" element={<PageNotFound/>}/>
 
             {/* Страница авторизации */}
-          <Route path="auth" element={<Auth />}/>
-
+          <Route path="auth" element={<Auth />}>
+            <Route path="respas" element={<RestoreModal />}/>
+          </ Route>
           <Route path="/" element={ <Layout /> }>
               {/* Роут на страницу конкретного пользователя */}
-              
+
             <Route path="/user/:id" element={ 
               // сначала проверяет, авторизован ли пользователь
               <RequireAuth>
@@ -29,7 +34,7 @@ function App() {
             }/>
 
             {/* Роут на домашнюю страницу */}
-            <Route path="/" element={ 
+            <Route index path="/" element={ 
               // сначала проверяет, авторизован ли пользователь
               <RequireAuth>
                 <HomePage />
@@ -38,6 +43,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
+
     </Context>
   );
 }

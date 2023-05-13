@@ -1,9 +1,64 @@
 .header {
     width: 100%;
-    padding: 10px;
     background-color: black;
 
     display: flex;
     align-items: center;
     justify-content: space-around;
+
+    position: sticky;
+
+    animation: start-animation .2s linear;
+}
+
+.log-out__btn {
+    padding: 10px 15px;
+    background-color: rgb(65, 91, 173);
+    font-family: 'Montserrat';
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    transition: .1s linear;
+}
+
+.log-out__btn:hover {
+    background-color: rgb(82, 82, 228);
+}
+
+.user-data {
+    min-width: 20%;
+    padding: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: .1s linear;
+}
+
+.user-data > p {
+    color: white;
+    margin-left: 15px;
+    font-size: 20px;
+    font-family: 'Montserrat';
+    transition: .1s linear;
+}
+
+.user-data:hover > p {
+    color: rgb(87, 158, 158);
+}
+
+.user-data:hover > img {
+    transform: scale(1.05);
 }

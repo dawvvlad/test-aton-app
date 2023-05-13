@@ -31,5 +31,14 @@ const getUserData = async (id) => {
     }
 }
 
-export { authUser, getUserData }
+const getAllUsers = async (offset) => {
+    try {
+        const response = await fetch(`https://reqres.in/api/users?page=${offset}`);
+        return response.json()
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+export { authUser, getUserData, getAllUsers }
 

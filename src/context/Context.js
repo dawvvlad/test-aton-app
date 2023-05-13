@@ -3,10 +3,10 @@ import { reducer } from "./reducer"
 export const ContextProvider = createContext()
 
 const initialValue = {
-    isAuth: false,
     userData: [],
-    products: [],
-    token: ``
+    resource: [],
+    token: ``,
+    isLoading: false
 }
 
 export const Context = ({ children }) => {
@@ -14,6 +14,14 @@ export const Context = ({ children }) => {
     
     state.setIsAuth = (value) => {
         dispatch({ type: "SET_IS_AUTH", payload: value })
+    }
+    
+    state.setUserData = (data) => {
+        dispatch({ type: "SET_USER_DATA", payload: data })
+    }
+
+    state.setIsLoading = (value) => {
+        dispatch({ type: "SET_IS_LOADING", payload: value })
     }
 
     return (
