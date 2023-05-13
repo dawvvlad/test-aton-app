@@ -4,17 +4,12 @@ export const ContextProvider = createContext()
 
 const initialValue = {
     userData: [],
-    resource: [],
-    token: ``,
+    resources: [],
     isLoading: false
 }
 
 export const Context = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, initialValue);
-    
-    state.setIsAuth = (value) => {
-        dispatch({ type: "SET_IS_AUTH", payload: value })
-    }
     
     state.setUserData = (data) => {
         dispatch({ type: "SET_USER_DATA", payload: data })
@@ -22,6 +17,10 @@ export const Context = ({ children }) => {
 
     state.setIsLoading = (value) => {
         dispatch({ type: "SET_IS_LOADING", payload: value })
+    }
+
+    state.setResources = (data) => {
+        dispatch({ type: "SET_RESOURCES", payload: data })
     }
 
     return (

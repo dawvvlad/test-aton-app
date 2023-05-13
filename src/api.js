@@ -31,6 +31,7 @@ const getUserData = async (id) => {
     }
 }
 
+// получение всех доступных пользователей
 const getAllUsers = async (offset) => {
     try {
         const response = await fetch(`https://reqres.in/api/users?page=${offset}`);
@@ -40,5 +41,15 @@ const getAllUsers = async (offset) => {
     }
 }
 
-export { authUser, getUserData, getAllUsers }
+// получение всех доступных ресурсов
+const getResources = async (offset) => {
+    try {
+        const response = await fetch(`https://reqres.in/api/unknown?page=${offset}`);
+        return response.json()
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+export { authUser, getUserData, getAllUsers, getResources }
 

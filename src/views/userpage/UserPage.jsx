@@ -2,18 +2,17 @@ import "./userpage.css";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getUserData } from "../../api";
+import { getUserData, getResources } from "../../api";
 import { ContextProvider } from "../../context/Context";
 import { Preloader } from "../../components/preloader/Preloader";
 import { PageNotFound } from "../pagenotfound/PageNotFound";
 import { DataTable } from "../../components/data-table/DataTable"
 
 export const UserPage = () => {
-    // Берем информацию о конкретном пользователе
     let { id } = useParams();
     const [ isUser, setIsUser ] = useState(false)
     const { userId } = JSON.parse(localStorage.getItem(`authData`))
-    const { userData, setUserData, isLoading, setIsLoading } = useContext(ContextProvider)
+    const { userData, setUserData, isLoading, setIsLoading, setResources } = useContext(ContextProvider)
 
     useEffect(() => { 
         setIsLoading(true);
@@ -21,8 +20,8 @@ export const UserPage = () => {
 
         getUserData(id).then(data => {
             setUserData(data.data);
-            setIsLoading(false);
 
+            // оповещение о получении данных
             toast.info(`Данные получены за ${((Date.now() - time) / 1000).toFixed(1)} сек.`, {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -34,14 +33,24 @@ export const UserPage = () => {
                 theme: "dark",
             });
 
+            // проверка, является ли страница пользователя страницей авторизованного пользователя
             if(data.data.id === userId) {
                 setIsUser(true);
             } else {
                 setIsUser(false)
             };
+        });
+
+        // получение ресурсов из API
+        getResources().then(data => {
+            setResources(data.data)
+            setIsLoading(false)
         })
+            
     }, [id])
 
+
+    // блокировка 
     if(Number(id) > 12) {
         return <PageNotFound></PageNotFound>
     }
@@ -57,8 +66,8 @@ export const UserPage = () => {
                         <a className="mail__link" href={`mailto:${userData.email}`}>{userData.email}</a>
                     </div>
                 </div>
-
-                <DataTable />
+                <h1>{`${userData.first_name}'s Resources`}</h1>
+                <DataTable isUser={isUser}/>
             </div>
             }
         </>

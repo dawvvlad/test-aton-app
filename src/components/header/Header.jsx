@@ -9,6 +9,7 @@ export const Header = () => {
     const navigate = useNavigate()
     const [ currentUser, setCurrentUser ] = useState([])
 
+    // функция деавторизации пользователя
     function logOut() {
         localStorage.removeItem(`authData`);
         toast('Вы вышли', {
@@ -25,6 +26,7 @@ export const Header = () => {
         navigate(`/auth`)
     }
 
+    // получение данных об авторизованном пользователе для отрисовки ссылки на его страницу в header
     useEffect(() => {
         getUserData(userId).then(data => {
             setCurrentUser(data.data)

@@ -22,6 +22,12 @@
     width: 100%;
 }
 
+.auth-page > a {
+    color: white;
+    font-family: 'Montserrat';
+    margin-top: 20px;
+}
+
 .email, .pass {
     width: 40%;
     padding: 20px 40px;

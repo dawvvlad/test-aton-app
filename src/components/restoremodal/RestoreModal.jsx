@@ -4,10 +4,12 @@ import "./restoremodal.css"
 import { useNavigate } from "react-router-dom"
 import { Preloader } from "../preloader/Preloader"
 
+// мдальное окно с подсказкой о возможных логинах, предоставлямых API
 export const RestoreModal = () => {
     const navigate = useNavigate()
     const [ logins, setLogins ] = useState([])
 
+    // получение доступных логинов из API постранично
     const getAllLogins = () => {
         Promise.all([getAllUsers(1), getAllUsers(2)]).then((data) => {
             const [p1, p2] = data;
@@ -15,6 +17,7 @@ export const RestoreModal = () => {
         })
     }
 
+    // запись всех логинов
     useEffect(() => {
         getAllLogins()
     }, [])

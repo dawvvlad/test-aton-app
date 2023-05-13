@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 function App() {
   return (
     <Context> 
-      
+      {/* Компонент оповещений */}
       <ToastContainer />
       <Router>
         <Routes>

@@ -1,10 +1,6 @@
 export const reducer = (state, { type, payload }) => {
     switch(type) {
-        case "SET_IS_AUTH": 
-            return {
-                ...state,
-                isAuth: payload
-        };
+
         case "SET_USER_DATA":
             return {
                 ...state,
@@ -15,6 +11,11 @@ export const reducer = (state, { type, payload }) => {
             return {
                 ...state,
                 isLoading: payload
+            };
+        case "SET_RESOURCES":
+            return {
+                ...state,
+                resources: payload
             }
         default: return state;
     }
