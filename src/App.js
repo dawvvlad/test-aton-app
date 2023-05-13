@@ -9,6 +9,9 @@ import { Layout } from "./common/Layout";
 import { RestoreModal } from "./components/restoremodal/RestoreModal";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import { EditModal } from "./components/editmodal/EditModal";
+import { PushModal } from "./components/pushmodal/PushModal";
+
 function App() {
   return (
     <Context> 
@@ -28,10 +31,14 @@ function App() {
 
             <Route path="/user/:id" element={ 
               // сначала проверяет, авторизован ли пользователь
+              
               <RequireAuth>
                 <UserPage />
               </RequireAuth>
-            }/>
+            }>
+              <Route path="edit/:resourceId" element={<EditModal />}/>
+              <Route path="push" element={<PushModal />}/>
+            </Route>
 
             {/* Роут на домашнюю страницу */}
             <Route index path="/" element={ 

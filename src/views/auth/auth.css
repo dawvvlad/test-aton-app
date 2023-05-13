@@ -28,7 +28,7 @@
     margin-top: 20px;
 }
 
-.email, .pass {
+.input-text, .pass {
     width: 40%;
     padding: 20px 40px;
     border-radius: 15px;
@@ -37,10 +37,10 @@
 
     box-shadow: 0 0 5px rgb(0, 0, 0);
 
-    color: white;
+    color: rgb(44, 44, 44);
     font-family: 'Montserrat';
     font-size: 20px;
-    background-color: rgb(52, 107, 107);
+    background-color: rgb(255, 255, 255);
     margin: 20px auto;
 
     transition: .1s linear;

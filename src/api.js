@@ -51,5 +51,26 @@ const getResources = async (offset) => {
     }
 }
 
-export { authUser, getUserData, getAllUsers, getResources }
+const editResource = async (id, name, year, color ) => {
+    try {
+        const response = await fetch(`https://reqres.in/api/unknown/${id}`, {
+            method: `PATCH`,
+            headers: {
+                headers: {
+                    "Content-type": "Application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    year,
+                    color
+                })
+            }
+        });
+        return response.json()
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+export { authUser, getUserData, getAllUsers, getResources, editResource }
 

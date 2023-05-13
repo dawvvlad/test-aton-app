@@ -1,8 +1,8 @@
 import "./userpage.css";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getUserData, getResources } from "../../api";
+import { getUserData, getResources, getAllUsers } from "../../api";
 import { ContextProvider } from "../../context/Context";
 import { Preloader } from "../../components/preloader/Preloader";
 import { PageNotFound } from "../pagenotfound/PageNotFound";
@@ -12,7 +12,10 @@ export const UserPage = () => {
     let { id } = useParams();
     const [ isUser, setIsUser ] = useState(false)
     const { userId } = JSON.parse(localStorage.getItem(`authData`))
-    const { userData, setUserData, isLoading, setIsLoading, setResources } = useContext(ContextProvider)
+    const { userData, setUserData, isLoading, setIsLoading, setResources, resources } = useContext(ContextProvider)
+    const [ totalPages, setTotalPages ] = useState(1)
+    const [ currentPage, setCurrentPage ] = useState(1)
+    const [ otherUsers, setOtherUsers ] = useState([])
 
     useEffect(() => { 
         setIsLoading(true);
@@ -32,7 +35,7 @@ export const UserPage = () => {
                 progress: undefined,
                 theme: "dark",
             });
-
+            
             // проверка, является ли страница пользователя страницей авторизованного пользователя
             if(data.data.id === userId) {
                 setIsUser(true);
@@ -42,11 +45,17 @@ export const UserPage = () => {
         });
 
         // получение ресурсов из API
-        getResources().then(data => {
-            setResources(data.data)
-            setIsLoading(false)
+        getResources(1).then(data => {
+            setResources(data.data);
+            setIsLoading(false);
+
+            setTotalPages(data.total_pages)
+        });
+        
+        getAllUsers().then(data => {
+            setOtherUsers(data.data)
         })
-            
+
     }, [id])
 
 
@@ -66,10 +75,24 @@ export const UserPage = () => {
                         <a className="mail__link" href={`mailto:${userData.email}`}>{userData.email}</a>
                     </div>
                 </div>
-                <h1>{`${userData.first_name}'s Resources`}</h1>
-                <DataTable isUser={isUser}/>
+                <div className="users-resources">
+                    <h3>{`${userData.first_name}'s Resources`}</h3>
+                    { isUser ? <Link to="push">Добавить</Link> : ``}
+                </div>
+                <DataTable isUser={isUser} 
+                        totalPages={totalPages} 
+                        setPages={setTotalPages} 
+                        currentPage={currentPage} 
+                        setCurrentPage={setCurrentPage}/>
+                
+                <div>
+                    <h1>Другие пользователи</h1>
+                    {  }
+                </div>
             </div>
             }
+
+            <Outlet />
         </>
     )
 }

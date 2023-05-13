@@ -1,0 +1,39 @@
+.data-table {
+    width: 100%;
+}
+
+.data-table__header, .data-table__body {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-content: inherit;
+    border: 1px solid rgb(136, 136, 136);
+}
+
+.data-table__header > h3, .data-table__body > p {
+    flex: 1 1 0;
+    text-align: center;
+    border-right: 1px solid white;
+    margin: 0;
+    font-family: 'Montserrat';
+    text-transform: uppercase;
+    color: rgb(192, 192, 192);
+    padding: 20px 0;
+}
+
+.change-btn {
+    margin-top: 20px;
+    border: none;
+    background-color: rgb(83, 90, 83);
+    cursor: pointer;
+    padding: 15px 25px;
+    color: white;
+    font-family: 'Montserrat';
+    border-radius: 10px;
+
+    box-shadow: 0 0 5px black;
+}
+
+.change-btn:hover {
+    background-color: rgb(83, 136, 83);
+}

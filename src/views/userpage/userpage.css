@@ -1,5 +1,5 @@
 .user-info:not(.title) {
-    margin: 5% 0;
+    margin: 5% 0 2% 0;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -20,9 +20,15 @@
     font-family: 'Montserrat';
 }
 
-
 .mail__link {
     color: rgb(83, 221, 210);
     text-decoration: none;
+}
 
+.users-resources {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Montserrat';
 }

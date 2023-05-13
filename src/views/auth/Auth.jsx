@@ -21,6 +21,19 @@ const Auth = () => {
         authUser(email.value, pass.value).then(data => {
             setIsLoading(true) // загрузка страницы
 
+            if(!email.value) {
+                toast.error('Введите логин', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+            }
+
             // если ОК - сохраняет токен пользователя в localStorage для сохранения статуса авторизации
             if(!data.error) {
                 // полученные из API данные
@@ -74,7 +87,7 @@ const Auth = () => {
                 <div className="container auth-page">
                     <h1>Вы не авторизованы</h1>
                     <form action="" onSubmit={authorize}>
-                        <input className="email" type="email" placeholder="Ваш email"/>
+                        <input className="email input-text" type="email" placeholder="Ваш email"/>
                         <input className="pass" type="password" placeholder="Пароль"/>
                         <input type="submit" className="submit-btn" value="Войти"/>
                     </form>

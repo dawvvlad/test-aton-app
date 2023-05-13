@@ -20,6 +20,7 @@ code {
   width: 80%;
   min-height: 100vh;
   margin: 0 auto;
+  padding: 100px 0;
   animation: start-animation .2s linear;
 }
 

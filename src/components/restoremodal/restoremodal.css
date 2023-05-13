@@ -3,9 +3,9 @@
     position: absolute;
     top: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+    overflow-y: hidden;
+    
     color: white;
     font-family: 'Montserrat';
     animation: start-animation .1s linear;
