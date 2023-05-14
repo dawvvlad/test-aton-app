@@ -2,6 +2,13 @@
     width: 100%;
 }
 
+.data-table__header {
+    position: sticky;
+    top: 62px;
+    z-index: 1;
+    background-color: rgb(48, 33, 33);
+}
+
 .data-table__header,
 .data-table__body {
     width: 100%;
