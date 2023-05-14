@@ -4,13 +4,14 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ContextProvider } from "../../context/Context";
 import { Preloader } from "../../components/preloader/Preloader"
+import { getResources } from "../../api";
 import { toast } from 'react-toastify'
 
 // страница авторизации
 const Auth = () => {
     const navigate = useNavigate();
     const { isLoading, setIsLoading } = useContext(ContextProvider)
-    
+
     // submit функция
     const authorize = (e) => {
         e.preventDefault();
@@ -44,7 +45,6 @@ const Auth = () => {
                 // сохраняет token и id в localStorage
                 localStorage.setItem(`authData`, JSON.stringify(authHistory));
 
-
                 // после успешной авторизации - редирект на страницу нужного пользователя
 
                 toast('Вход выполнен', {
@@ -59,8 +59,11 @@ const Auth = () => {
                     });
 
                 navigate(`/user/${data.id}`);
-
-                setIsLoading(false) // загрузка страницы прекращена
+                Promise.all([ getResources(1), getResources(2) ]).then(data => {
+                    const [p1, p2] = data
+                    localStorage.setItem(`resources`, JSON.stringify([...p1.data, ...p2.data]))
+                })
+                setIsLoading(false) // загрузка страницы прекращена;
             }
 
             // иначе - выводит сообщение, что данные введены некорректно

@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { getUserData } from "../../api";
 import { toast } from "react-toastify";
 
-export const Header = () => {
+export const Header = memo(function Header() {
     const { userId, auth_token } = JSON.parse(localStorage.getItem(`authData`)) || []
     const navigate = useNavigate()
     const [ currentUser, setCurrentUser ] = useState([])
@@ -12,6 +12,8 @@ export const Header = () => {
     // функция деавторизации пользователя
     function logOut() {
         localStorage.removeItem(`authData`);
+        localStorage.removeItem(`resources`);
+
         toast('Вы вышли', {
             position: "bottom-right",
             autoClose: 5000,
@@ -43,4 +45,4 @@ export const Header = () => {
             { auth_token ? <button className="log-out__btn" onClick={() => logOut()}>Выйти</button> : <Link className="log-out__btn" to="/auth">Войти</Link> }
         </header>
     )
-}
+})

@@ -1,8 +1,7 @@
 import "./userpage.css";
 import { useContext, useEffect, useState } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { getUserData, getResources, getAllUsers } from "../../api";
+import { getUserData, getAllUsers } from "../../api";
 import { ContextProvider } from "../../context/Context";
 import { Preloader } from "../../components/preloader/Preloader";
 import { PageNotFound } from "../pagenotfound/PageNotFound";
@@ -12,51 +11,34 @@ export const UserPage = () => {
     let { id } = useParams();
     const [ isUser, setIsUser ] = useState(false)
     const { userId } = JSON.parse(localStorage.getItem(`authData`))
-    const { userData, setUserData, isLoading, setIsLoading, setResources, resources } = useContext(ContextProvider)
+    const { userData, setUserData, isLoading, setIsLoading } = useContext(ContextProvider)
     const [ totalPages, setTotalPages ] = useState(1)
     const [ currentPage, setCurrentPage ] = useState(1)
-    const [ otherUsers, setOtherUsers ] = useState([])
+    const [ otherUsers, setOtherUsers ] = useState([1])
 
     useEffect(() => { 
         setIsLoading(true);
-        let time = Date.now();
 
         getUserData(id).then(data => {
             setUserData(data.data);
-
-            // оповещение о получении данных
-            toast.info(`Данные получены за ${((Date.now() - time) / 1000).toFixed(1)} сек.`, {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            
             // проверка, является ли страница пользователя страницей авторизованного пользователя
             if(data.data.id === userId) {
                 setIsUser(true);
+                setIsLoading(false)
+
             } else {
-                setIsUser(false)
+                setIsUser(false);
+                setIsLoading(false)
             };
+            
         });
 
-        // получение ресурсов из API
-        getResources(1).then(data => {
-            setResources(data.data);
-            setIsLoading(false);
-
-            setTotalPages(data.total_pages)
-        });
-        
-        getAllUsers().then(data => {
-            setOtherUsers(data.data)
+        Promise.all([getAllUsers(1), getAllUsers(2)]).then(data => {
+            const [p1, p2] = data;
+            setOtherUsers([...p1.data, ...p2.data]);
         })
 
-    }, [id])
+    }, [ id])
 
 
     // блокировка 
@@ -83,11 +65,23 @@ export const UserPage = () => {
                         totalPages={totalPages} 
                         setPages={setTotalPages} 
                         currentPage={currentPage} 
-                        setCurrentPage={setCurrentPage}/>
+                        setCurrentPage={setCurrentPage}
+                        setTotalPages={setTotalPages}
+                        id={id}/>
                 
-                <div>
+                <div className="others">
                     <h1>Другие пользователи</h1>
-                    {  }
+                    <div className="other-people">
+                        { otherUsers.map(e => {
+                            if(e.id !== Number(userId) && e.id !== Number(id)) {
+                                return (
+                                <Link key={e.id} to={`/user/${e.id}`}>
+                                    <img src={e.avatar} alt=""/>
+                                    <p>{e.first_name}</p>
+                                </Link>)
+                            } else return ``
+                        }) }
+                    </div>
                 </div>
             </div>
             }

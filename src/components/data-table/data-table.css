@@ -21,6 +21,10 @@
     padding: 20px 0;
 }
 
+.data-table__body > p > a, .users-resources > a {
+    color: white;
+}
+
 .change-btn {
     margin-top: 20px;
     border: none;
