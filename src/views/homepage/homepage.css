@@ -1,0 +1,13 @@
+.home {
+    text-align: center;
+}
+
+.home > a {
+    text-decoration: none;
+    color: rgb(159, 181, 250);
+    font-family: 'Montserrat';
+}
+
+.home > h1 {
+    margin-bottom: 50px;
+}

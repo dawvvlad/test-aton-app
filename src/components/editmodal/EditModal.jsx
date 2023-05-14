@@ -1,4 +1,4 @@
-import { memo, useContext } from "react"
+import { memo, useContext, useEffect } from "react"
 import "./editmodal.css"
 import { useNavigate, useParams } from "react-router-dom"
 import { editResource } from "../../api"
@@ -13,6 +13,12 @@ export const EditModal = memo(function EditModal() {
 
     // данные из хранилища
     const res = JSON.parse(localStorage.getItem(`resources`)) || [];
+
+    useEffect(() => {
+        if(resourceId) {
+            document.title = `Изменить объект`
+        } else document.title = `Добавить объект` 
+    }, [])
 
     // функция изменения конкретного элемента
     function handleEdit() {

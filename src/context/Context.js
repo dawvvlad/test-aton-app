@@ -25,6 +25,7 @@ export const Context = ({ children }) => {
     state.setResources = (data) => {
         dispatch({ type: "SET_RESOURCES", payload: data })
     }
+    
 
     return (
         <ContextProvider.Provider value={state}>

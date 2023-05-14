@@ -1,7 +1,7 @@
 import "./auth.css";
 import { authUser } from "../../api";
 import { Link, Outlet, useNavigate } from "react-router-dom"; 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ContextProvider } from "../../context/Context";
 import { Preloader } from "../../components/preloader/Preloader"
 import { getResources } from "../../api";
@@ -11,6 +11,10 @@ import { toast } from 'react-toastify'
 const Auth = () => {
     const navigate = useNavigate();
     const { isLoading, setIsLoading } = useContext(ContextProvider)
+
+    useEffect(() => {
+        document.title = `Авторизация`
+    }, [])
 
     // submit функция
     const authorize = (e) => {

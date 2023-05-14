@@ -21,7 +21,6 @@ export const UserPage = () => {
 
     useEffect(() => { 
         setIsLoading(true);
-
         getUserData(id).then(data => {
             setUserData(data.data);
             // проверка, является ли страница пользователя страницей авторизованного пользователя
@@ -33,7 +32,7 @@ export const UserPage = () => {
                 setIsUser(false);
                 setIsLoading(false)
             };
-            
+            document.title = `${data.data.first_name} ${data.data.last_name}`
         });
 
 
