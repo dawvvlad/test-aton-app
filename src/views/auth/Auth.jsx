@@ -22,6 +22,7 @@ const Auth = () => {
         authUser(email.value, pass.value).then(data => {
             setIsLoading(true) // загрузка страницы
 
+            // оповещение о неверно введенных данных
             if(!email.value) {
                 toast.error('Введите логин', {
                     position: "bottom-right",

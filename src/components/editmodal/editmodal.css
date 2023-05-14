@@ -1,7 +1,10 @@
 .edit {
     width: 70%;
     box-shadow: 0 0 5px black;
+}
 
+.modal-window > span {
+    cursor: pointer;
 }
 
 .edit > form {

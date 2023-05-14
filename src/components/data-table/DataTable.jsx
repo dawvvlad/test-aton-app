@@ -7,10 +7,14 @@ import { Preloader } from "../preloader/Preloader";
 import { toast } from "react-toastify";
 
 export const DataTable = (props) => {
-    const { isUser, totalPages, currentPage, setCurrentPage, setTotalPages, id } = props
-    const { resources ,setResources, setIsLoading, isLoading } = useContext(ContextProvider);
+    const { isUser, totalPages, currentPage, setCurrentPage, setTotalPages, id } = props;
+
+    // состояние объектов таблицы, состояние загрузки
+    const { resources, setResources, isLoading } = useContext(ContextProvider);
     const res = JSON.parse(localStorage.getItem(`resources`)) || [];
 
+
+    // пагинация
     function nextPage() {
         if(isUser) {
             setResources(res.slice(res.length / 2, res.length));
@@ -56,6 +60,7 @@ export const DataTable = (props) => {
             });
         }
 
+        // если страница юзера - НЕ страница авторизованного юзера, меняем его объекты
         if(!isUser) {
             getResources(currentPage).then(data => {
                 setResources(data.data);

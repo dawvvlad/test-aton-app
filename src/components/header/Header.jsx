@@ -14,6 +14,7 @@ export const Header = memo(function Header() {
         localStorage.removeItem(`authData`);
         localStorage.removeItem(`resources`);
 
+        // уведомление
         toast('Вы вышли', {
             position: "bottom-right",
             autoClose: 5000,

@@ -10,17 +10,36 @@ export const EditModal = memo(function EditModal() {
     const { resources } = useContext(ContextProvider);
 
     const navigate = useNavigate()
+
+    // данные из хранилища
     const res = JSON.parse(localStorage.getItem(`resources`)) || [];
 
-    function edit() {
+    // функция изменения конкретного элемента
+    function handleEdit() {
         const [ name, year ] = document.querySelectorAll(`.input-text`);
         const [ r, g, b]  = document.querySelectorAll(`.input-range`);
 
+        if(!name.value || !year.value) {
+            toast.error('Заполните поля', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            return;
+        }
+
+        // находит выбранный элемент
         const curRes = resources.find(e => e.id === Number(resourceId));
-
+        
+        // ajax-запрос к API и отравка уведомления
         editResource(resourceId, name.value, year.value, `rgb(${r.value}, ${g.value}, ${b.value})`).then(data => {
+            const date = new Date(data.updatedAt);
 
-            const date = new Date(data.updatedAt)
             toast.info(`Изменено ${Intl.DateTimeFormat('ru-RU', { 
                 year: 'numeric', month: 'numeric', day: 'numeric',
                 hour: 'numeric', minute: 'numeric', second: 'numeric' 
@@ -36,21 +55,39 @@ export const EditModal = memo(function EditModal() {
                 theme: "dark",
             });
         })
-        
+
         curRes.name = name.value;
         curRes.year = year.value;
         curRes.color = `rgb(${r.value}, ${g.value}, ${b.value})`;
 
+        // запись изменений в хранилище
         res[res.findIndex((item) => item.id === curRes.id)] = curRes;
         localStorage.setItem('resources', JSON.stringify(res));
 
         navigate(-1)
     }
 
-    function push() {
+
+    // функция добавления нового элемента
+    function handlePush() {
         const [ name, year ] = document.querySelectorAll(`.input-text`);
         const [ r, g, b]  = document.querySelectorAll(`.input-range`);
         
+        if(!name.value || !year.value) {
+            toast.error('Заполните поля', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            return;
+        }
+
+        // добавление в хранилище значений из формы
         localStorage.setItem(`resources`, JSON.stringify([...res, {
             id: res.length + 1, 
             name: name.value, year: 
@@ -91,7 +128,7 @@ export const EditModal = memo(function EditModal() {
                             b<input className="input-range" type="range" min={0} max={255} />
                         </label>
                     </div>
-                    <input onClick={ resourceId ? edit : push} className="submit-btn" type="submit" value="Сохранить"/>
+                    <input onClick={ resourceId ? handleEdit : handlePush} className="submit-btn" type="submit" value="Сохранить"/>
                 </form>
             </div>
         </div>

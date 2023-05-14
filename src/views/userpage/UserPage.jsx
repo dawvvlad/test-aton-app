@@ -8,12 +8,15 @@ import { PageNotFound } from "../pagenotfound/PageNotFound";
 import { DataTable } from "../../components/data-table/DataTable"
 
 export const UserPage = () => {
+    // id юзера из адресной строки
     let { id } = useParams();
-    const [ isUser, setIsUser ] = useState(false)
+    const [ isUser, setIsUser ] = useState(false);
+
+    // данные пользователя из хранилища
     const { userId } = JSON.parse(localStorage.getItem(`authData`))
     const { userData, setUserData, isLoading, setIsLoading } = useContext(ContextProvider)
-    const [ totalPages, setTotalPages ] = useState(1)
-    const [ currentPage, setCurrentPage ] = useState(1)
+    const [ totalPages, setTotalPages ] = useState(1);
+    const [ currentPage, setCurrentPage ] = useState(1);
     const [ otherUsers, setOtherUsers ] = useState([1])
 
     useEffect(() => { 
@@ -33,6 +36,8 @@ export const UserPage = () => {
             
         });
 
+
+        // получение остальых пользователей
         Promise.all([getAllUsers(1), getAllUsers(2)]).then(data => {
             const [p1, p2] = data;
             setOtherUsers([...p1.data, ...p2.data]);
