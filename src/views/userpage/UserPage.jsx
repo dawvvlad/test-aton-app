@@ -10,21 +10,21 @@ import { DataTable } from "../../components/data-table/DataTable"
 export const UserPage = () => {
     // id юзера из адресной строки
     let { id } = useParams();
-    const [ isUser, setIsUser ] = useState(false);
+    const [isUser, setIsUser] = useState(false);
 
     // данные пользователя из хранилища
     const { userId } = JSON.parse(localStorage.getItem(`authData`))
     const { userData, setUserData, isLoading, setIsLoading } = useContext(ContextProvider)
-    const [ totalPages, setTotalPages ] = useState(1);
-    const [ currentPage, setCurrentPage ] = useState(1);
-    const [ otherUsers, setOtherUsers ] = useState([1])
+    const [totalPages, setTotalPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [otherUsers, setOtherUsers] = useState([1])
 
-    useEffect(() => { 
+    useEffect(() => {
         setIsLoading(true);
         getUserData(id).then(data => {
             setUserData(data.data);
             // проверка, является ли страница пользователя страницей авторизованного пользователя
-            if(data.data.id === userId) {
+            if (data.data.id === userId) {
                 setIsUser(true);
                 setIsLoading(false)
 
@@ -46,48 +46,48 @@ export const UserPage = () => {
 
 
     // блокировка 
-    if(Number(id) > 12) {
+    if (Number(id) > 12) {
         return <PageNotFound></PageNotFound>
     }
 
     return (
         <>
-            { isLoading || !userData ? <Preloader /> : 
+            {isLoading || !userData ? <Preloader /> :
                 <div className="container">
-                 <div className="user-info">
-                    <img src={userData.avatar} alt="" />
-                    <div className="user-info title">
-                        <h1>{userData.first_name} {userData.last_name}</h1>
-                        <a className="mail__link" href={`mailto:${userData.email}`}>{userData.email}</a>
+                    <div className="user-info">
+                        <img src={userData.avatar} alt="" />
+                        <div className="user-info title">
+                            <h1>{userData.first_name} {userData.last_name}</h1>
+                            <a className="mail__link" href={`mailto:${userData.email}`}>{userData.email}</a>
+                        </div>
                     </div>
-                </div>
-                <div className="users-resources">
-                    <h3>{`${userData.first_name}'s Resources`}</h3>
-                    { isUser ? <Link to="push">Добавить</Link> : ``}
-                </div>
-                <DataTable isUser={isUser} 
-                        totalPages={totalPages} 
-                        setPages={setTotalPages} 
-                        currentPage={currentPage} 
+                    <div className="users-resources">
+                        <h3>{`${userData.first_name}'s Resources`}</h3>
+                        {isUser ? <Link to="push">Добавить</Link> : ``}
+                    </div>
+                    <DataTable isUser={isUser}
+                        totalPages={totalPages}
+                        setPages={setTotalPages}
+                        currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
                         setTotalPages={setTotalPages}
-                        id={id}/>
-                
-                <div className="others">
-                    <h1>Другие пользователи</h1>
-                    <div className="other-people">
-                        { otherUsers.map(e => {
-                            if(e.id !== Number(userId) && e.id !== Number(id)) {
-                                return (
-                                <Link key={e.id} to={`/user/${e.id}`}>
-                                    <img src={e.avatar} alt=""/>
-                                    <p>{e.first_name}</p>
-                                </Link>)
-                            } else return ``
-                        }) }
+                        id={id} />
+
+                    <div className="others">
+                        <h1>Другие пользователи</h1>
+                        <div className="other-people">
+                            {otherUsers.map(e => {
+                                if (e.id !== Number(userId) && e.id !== Number(id)) {
+                                    return (
+                                        <Link key={e.id} to={`/test-aton-app/user/${e.id}`}>
+                                            <img src={e.avatar} alt="" />
+                                            <p>{e.first_name}</p>
+                                        </Link>)
+                                } else return ``
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
             }
 
             <Outlet />

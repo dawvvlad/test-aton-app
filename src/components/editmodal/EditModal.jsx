@@ -1,7 +1,7 @@
 import { memo, useContext, useEffect } from "react"
 import "./editmodal.css"
 import { useNavigate, useParams } from "react-router-dom"
-import { editResource, pushResource } from "../../api"
+import { deleteResource, editResource, pushResource } from "../../api"
 import { toast } from "react-toastify"
 import { ContextProvider } from "../../context/Context"
 
@@ -15,18 +15,46 @@ export const EditModal = memo(function EditModal() {
     const res = JSON.parse(localStorage.getItem(`resources`)) || [];
 
     useEffect(() => {
-        if(resourceId) {
+        if (resourceId) {
             document.title = `Изменить объект`
-        } else document.title = `Добавить объект` 
+        } else document.title = `Добавить объект`
     }, [])
+
+
+    //функция удаления
+    function handleDelete() {
+        setIsLoading(true)
+        const curRes = resources.find(e => e.id === Number(resourceId));
+
+        //отправка DELETE-запросак API
+        deleteResource(curRes).then(data => {
+
+            setIsLoading(false);
+            res.splice(resources[curRes.id], 1)
+            localStorage.setItem('resources', JSON.stringify(res));
+            navigate(-1);
+
+            toast.success(`Удалено`,
+                {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+        })
+    }
 
     // функция изменения конкретного элемента
     function handleEdit() {
         setIsLoading(true)
-        const [ name, year ] = document.querySelectorAll(`.input-text`);
-        const [ r, g, b]  = document.querySelectorAll(`.input-range`);
+        const [name, year] = document.querySelectorAll(`.input-text`);
+        const [r, g, b] = document.querySelectorAll(`.input-range`);
 
-        if(!name.value || !year.value) {
+        if (!name.value || !year.value) {
             toast.error('Заполните поля', {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -36,31 +64,32 @@ export const EditModal = memo(function EditModal() {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
+            });
+            setIsLoading(false)
             return;
         }
 
         // находит выбранный элемент
         const curRes = resources.find(e => e.id === Number(resourceId));
-        
+
         // ajax-запрос к API и отравка уведомления
         editResource(resourceId, name.value, year.value, `rgb(${r.value}, ${g.value}, ${b.value})`).then(data => {
             const date = new Date(data.updatedAt);
 
-            toast.info(`Изменено ${Intl.DateTimeFormat('ru-RU', { 
+            toast.info(`Изменено ${Intl.DateTimeFormat('ru-RU', {
                 year: 'numeric', month: 'numeric', day: 'numeric',
-                hour: 'numeric', minute: 'numeric', second: 'numeric' 
-            }).format(date)}`, 
-            {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+                hour: 'numeric', minute: 'numeric', second: 'numeric'
+            }).format(date)}`,
+                {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
 
             setIsLoading(false)
         })
@@ -79,11 +108,11 @@ export const EditModal = memo(function EditModal() {
 
     // функция добавления нового элемента
     function handlePush() {
-        const [ name, year ] = document.querySelectorAll(`.input-text`);
-        const [ r, g, b]  = document.querySelectorAll(`.input-range`);
+        const [name, year] = document.querySelectorAll(`.input-text`);
+        const [r, g, b] = document.querySelectorAll(`.input-range`);
         setIsLoading(true)
 
-        if(!name.value || !year.value) {
+        if (!name.value || !year.value) {
             toast.error('Заполните поля', {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -93,61 +122,64 @@ export const EditModal = memo(function EditModal() {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
+            });
+            setIsLoading(false)
             return;
         }
 
         pushResource(res.length + 1).then(data => {
             // добавление в хранилище значений из формы
-        localStorage.setItem(`resources`, JSON.stringify([...res, {
-            id: data.id, 
-            name: name.value, year: 
-            year.value, 
-            color: `rgb(${r.value}, ${g.value}, ${b.value})` }]));
+            localStorage.setItem(`resources`, JSON.stringify([...res, {
+                id: data.id,
+                name: name.value, year:
+                    year.value,
+                color: `rgb(${r.value}, ${g.value}, ${b.value})`
+            }]));
 
-            toast.info(`Объект ID ${data.id} добавлен`, 
-            {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-        navigate(-1);
+            toast.info(`Объект ID ${data.id} добавлен`,
+                {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            navigate(-1);
 
-        setIsLoading(false)
+            setIsLoading(false)
         })
 
-        
     }
 
     return (
         <>
             <div className="container modal">
-            <div className="modal-window edit">
-                <span onClick={() => navigate(-1)}>✕</span>
-                <form action="" onSubmit={(e) => e.preventDefault()}>
-                    <input className="input-text edit-modal" type="text" placeholder="name" />
-                    <input className="input-text edit-modal" type="text" placeholder="year" />
-                    <div className="color-edit">
-                        <p>color</p>
-                        <label htmlFor="">
-                            r<input className="input-range" type="range" min={0} max={255} />
-                        </label>
-                        <label htmlFor="">
-                            g<input className="input-range" type="range" min={0} max={255} />
-                        </label>
-                        <label htmlFor="">
-                            b<input className="input-range" type="range" min={0} max={255} />
-                        </label>
-                    </div>
-                    <input onClick={ resourceId ? handleEdit : handlePush} className="submit-btn" type="submit" value="Сохранить"/>
-                </form>
+                <div className="modal-window edit">
+                    <span onClick={() => navigate(-1)}>✕</span>
+                    <form action="" onSubmit={(e) => e.preventDefault()}>
+                        <input className="input-text edit-modal" type="text" placeholder="name" />
+                        <input className="input-text edit-modal" type="text" placeholder="year" />
+                        <div className="color-edit">
+                            <p>color</p>
+                            <label htmlFor="">
+                                r<input className="input-range" type="range" min={0} max={255} />
+                            </label>
+                            <label htmlFor="">
+                                g<input className="input-range" type="range" min={0} max={255} />
+                            </label>
+                            <label htmlFor="">
+                                b<input className="input-range" type="range" min={0} max={255} />
+                            </label>
+                        </div>
+                        <input onClick={resourceId ? handleEdit : handlePush} className="submit-btn" type="submit" value="Сохранить" />
+                    </form>
+
+                    {resourceId ? <button className="submit-btn delete" onClick={handleDelete}>Удалить</button> : ``}
+                </div>
             </div>
-        </div>
         </>
     )
 })

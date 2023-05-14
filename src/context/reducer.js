@@ -1,5 +1,5 @@
 export const reducer = (state, { type, payload }) => {
-    switch(type) {
+    switch (type) {
 
         case "SET_USER_DATA":
             return {

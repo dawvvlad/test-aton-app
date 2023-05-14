@@ -13,10 +13,9 @@ export const DataTable = (props) => {
     const { resources, setResources, isLoading } = useContext(ContextProvider);
     const res = JSON.parse(localStorage.getItem(`resources`)) || [];
 
-
     // пагинация
     function nextPage() {
-        if(isUser) {
+        if (isUser) {
             setResources(res.slice(res.length / 2, res.length));
             setCurrentPage(currentPage + 1)
         } else {
@@ -26,9 +25,8 @@ export const DataTable = (props) => {
             })
         }
     }
-
-    function prevPage () {
-        if(isUser) {
+    function prevPage() {
+        if (isUser) {
             setResources(res.slice(0, res.length / 2));
             setCurrentPage(currentPage - 1)
         } else {
@@ -38,38 +36,35 @@ export const DataTable = (props) => {
             })
         }
     }
-
     useEffect(() => {
         // получение ресурсов из API;
         setCurrentPage(1);
-        if(isUser) {
+        if (isUser) {
             getResources(currentPage).then(data => {
                 setResources(res.slice(0, res.length / 2));
                 setTotalPages(data.total_pages);
-                
+
                 // оповещение о получении данных
-            toast.info(`Данные получены`, {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+                toast.info(`Данные получены`, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             });
         }
-
         // если страница юзера - НЕ страница авторизованного юзера, меняем его объекты
-        if(!isUser) {
+        if (!isUser) {
             getResources(currentPage).then(data => {
                 setResources(data.data);
                 setTotalPages(data.total_pages);
             });
         }
     }, [id])
-
     return (
         <>
             <div className="data-table">
@@ -78,23 +73,23 @@ export const DataTable = (props) => {
                     <h3>name</h3>
                     <h3>year</h3>
                     <h3>color</h3>
-                    { isUser ? <h3>*</h3> : ``}
+                    {isUser ? <h3>*</h3> : ``}
                 </div>
-                { !isLoading ? resources.map(e => {
+                {!isLoading ? resources.map(e => {
                     return <div key={e.id} className="data-table__body">
-                                <p>{e.id}</p>
-                                <p>{e.name}</p>
-                                <p>{e.year}</p>
-                                <p style={{ backgroundColor: `${e.color}` }}></p>
-                                { isUser ? <p><Link to={`edit/${e.id}`}>Изменить</Link></p> : ``}
-                            </div>
-                            
-                }) : <Preloader /> }
+                        <p>{e.id}</p>
+                        <p>{e.name}</p>
+                        <p>{e.year}</p>
+                        <p style={{ backgroundColor: `${e.color}` }}></p>
+                        {isUser ? <p><Link to={`edit/${e.id}`}>Изменить</Link></p> : ``}
+                    </div>
+
+                }) : <Preloader />}
             </div>
 
-            { totalPages > currentPage ? <button className="change-btn" onClick={() => nextPage()}>Next</button> : ``}
-            { totalPages === currentPage ? <button className="change-btn" onClick={() => prevPage()}>Prev</button> : ``}
+            {totalPages > currentPage ? <button className="change-btn" onClick={() => nextPage()}>Next</button> : ``}
+            {totalPages === currentPage ? <button className="change-btn" onClick={() => prevPage()}>Prev</button> : ``}
         </>
-        
+
     )
 }

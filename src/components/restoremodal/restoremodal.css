@@ -3,8 +3,6 @@
     position: absolute;
     top: 0;
     background-color: rgba(0, 0, 0, 0.6);
-
-    overflow-y: hidden;
     
     color: white;
     font-family: 'Montserrat';
@@ -55,4 +53,27 @@
     position: absolute;
     right: 20px;
     top: 10px;
+}
+
+@media screen and (max-width: 800px) {
+
+    .modal-window {
+        position: relative;
+        width: 80%;
+        box-shadow: 0 0 5px white;
+        border-radius: 20px;
+        padding-bottom: 50px;
+    }
+    .modal-window-logins > h2 {
+        text-transform: uppercase;
+        font-size: 1rem;
+        margin-top: 50px;
+        text-align: center;
+    }
+    .modal-window-logins > li {
+        font-size: .9rem;
+        line-height: 25px;
+        margin: 0;
+        text-align-last: left;
+    }
 }

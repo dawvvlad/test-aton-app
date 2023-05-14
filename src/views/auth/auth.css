@@ -70,3 +70,30 @@
     color: red;
     border: 1px solid red;
 }
+
+@media screen and (max-width: 800px) {
+    .auth-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    
+        animation: start-animation .2s linear;
+    }
+
+    .auth-page > h1 {
+        font-size: 1rem;
+        margin-top: 10%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .input-text, .pass {
+        width: 60%;
+        padding: 15px 30px;
+        font-size: 100%;
+        margin: 5% auto;
+    
+        transition: .1s linear;
+    }
+}

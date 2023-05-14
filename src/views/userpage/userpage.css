@@ -68,3 +68,44 @@
     border-radius: 50%;
     box-shadow: 0 0 5px black;
 }
+
+@media screen and (max-width: 800px) {
+    .user-info {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .user-info > img {
+        border-radius: 10px;
+        width: 100px;
+        height: 100px;
+    }
+    .user-info__title {
+        text-align: center;
+    }
+
+    .title > h1 {
+        font-size: 1.5rem;
+    }
+
+    .mail__link {
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .other-people {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .other-people > a > img {
+        width: 100px;
+        height: 100px;
+        transition: .1s linear;
+    
+        border-radius: 50%;
+        box-shadow: 0 0 5px black;
+    }
+}

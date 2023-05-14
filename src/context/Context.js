@@ -9,8 +9,8 @@ const initialValue = {
 }
 
 export const Context = ({ children }) => {
-    const [ state, dispatch ] = useReducer(reducer, initialValue);
-    
+    const [state, dispatch] = useReducer(reducer, initialValue);
+
     // получение данных пользователя
     state.setUserData = (data) => {
         dispatch({ type: "SET_USER_DATA", payload: data })
@@ -25,11 +25,11 @@ export const Context = ({ children }) => {
     state.setResources = (data) => {
         dispatch({ type: "SET_RESOURCES", payload: data })
     }
-    
+
 
     return (
         <ContextProvider.Provider value={state}>
-            { children }
+            {children}
         </ContextProvider.Provider >
     )
 }

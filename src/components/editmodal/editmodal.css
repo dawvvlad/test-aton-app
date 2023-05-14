@@ -15,6 +15,10 @@
     justify-content: center;
 }
 
+.submit-btn {
+    margin: 15px 0;
+}
+
 .edit-modal {
     width: 50%;
 }
@@ -37,4 +41,8 @@
 .color-edit > label > input {
     margin: 20px;
     width: 50%;
+}
+
+.delete {
+    background-color: red;
 }

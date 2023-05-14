@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 export const Header = memo(function Header() {
     const { userId, auth_token } = JSON.parse(localStorage.getItem(`authData`)) || []
     const navigate = useNavigate()
-    const [ currentUser, setCurrentUser ] = useState([])
+    const [currentUser, setCurrentUser] = useState([])
 
     // функция деавторизации пользователя
     function logOut() {
@@ -24,9 +24,9 @@ export const Header = memo(function Header() {
             draggable: true,
             progress: undefined,
             theme: "dark",
-            });
+        });
 
-        navigate(`/auth`)
+        navigate(`/test-aton-app/auth`)
     }
 
     // получение данных об авторизованном пользователе для отрисовки ссылки на его страницу в header
@@ -38,12 +38,12 @@ export const Header = memo(function Header() {
 
     return (
         <header className="header">
-            <Link to="/"><h1>logo</h1></Link>
-            { auth_token && currentUser ? <Link to={`user/${userId}`} className="user-data">
+            <Link to="/test-aton-app"><h1>logo</h1></Link>
+            {auth_token && currentUser ? <Link to={`/test-aton-app/user/${userId}`} className="user-data">
                 <img className="avatar" src={currentUser.avatar} alt="" />
                 <p>{currentUser.first_name}</p>
             </Link> : ``}
-            { auth_token ? <button className="log-out__btn" onClick={() => logOut()}>Выйти</button> : <Link className="log-out__btn" to="/auth">Войти</Link> }
+            {auth_token ? <button className="log-out__btn" onClick={() => logOut()}>Выйти</button> : <Link className="log-out__btn" to="/auth">Войти</Link>}
         </header>
     )
 })

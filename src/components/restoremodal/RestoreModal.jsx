@@ -7,7 +7,7 @@ import { Preloader } from "../preloader/Preloader"
 // мдальное окно с подсказкой о возможных логинах, предоставлямых API
 export const RestoreModal = () => {
     const navigate = useNavigate()
-    const [ logins, setLogins ] = useState([])
+    const [logins, setLogins] = useState([])
 
     // получение доступных логинов из API постранично
     const getAllLogins = () => {
@@ -29,7 +29,7 @@ export const RestoreModal = () => {
                 <div className="modal-window-logins">
                     <h2>доступные логины:</h2>
                     <p> (пароль может быть любым) </p>
-                    { logins.length ? logins.map(e => {
+                    {logins.length ? logins.map(e => {
                         return <li>{e.email}</li>
                     }) : <Preloader />}
                 </div>

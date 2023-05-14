@@ -63,7 +63,7 @@ const Auth = () => {
                     theme: "dark",
                     });
 
-                navigate(`/user/${data.id}`);
+                navigate(`/test-aton-app/user/${data.id}`);
                 Promise.all([ getResources(1), getResources(2) ]).then(data => {
                     const [p1, p2] = data
                     localStorage.setItem(`resources`, JSON.stringify([...p1.data, ...p2.data]))
