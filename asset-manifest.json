@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/test-aton-app/static/css/main.f455835b.css",
+    "main.css": "/test-aton-app/static/css/main.dfe21350.css",
     "main.js": "/test-aton-app/static/js/main.a49dee8c.js",
     "index.html": "/test-aton-app/index.html",
-    "main.f455835b.css.map": "/test-aton-app/static/css/main.f455835b.css.map",
+    "main.dfe21350.css.map": "/test-aton-app/static/css/main.dfe21350.css.map",
     "main.a49dee8c.js.map": "/test-aton-app/static/js/main.a49dee8c.js.map"
   },
   "entrypoints": [
-    "static/css/main.f455835b.css",
+    "static/css/main.dfe21350.css",
     "static/js/main.a49dee8c.js"
   ]
 }
