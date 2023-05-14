@@ -5,7 +5,8 @@ export const ContextProvider = createContext()
 const initialValue = {
     userData: [],
     resources: [],
-    isLoading: false
+    isLoading: false,
+    targetId: undefined
 }
 
 export const Context = ({ children }) => {
@@ -26,6 +27,9 @@ export const Context = ({ children }) => {
         dispatch({ type: "SET_RESOURCES", payload: data })
     }
 
+    state.setTargetId = (data) => {
+        dispatch({ type: "SET_TARGET_ID", payload: data })
+    }
 
     return (
         <ContextProvider.Provider value={state}>

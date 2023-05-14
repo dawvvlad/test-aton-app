@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 export const DataTable = (props) => {
     const { isUser, totalPages, currentPage, setCurrentPage, setTotalPages, id } = props;
+    const { setTargetId } = useContext(ContextProvider)
 
     // состояние объектов таблицы, состояние загрузки
     const { resources, setResources, isLoading } = useContext(ContextProvider);
@@ -75,13 +76,13 @@ export const DataTable = (props) => {
                     <h3>color</h3>
                     {isUser ? <h3>*</h3> : ``}
                 </div>
-                {!isLoading ? resources.map(e => {
+                {!isLoading ? resources.map((e, i) => {
                     return <div key={e.id} className="data-table__body">
                         <p>{e.id}</p>
                         <p>{e.name}</p>
                         <p>{e.year}</p>
                         <p style={{ backgroundColor: `${e.color}` }}></p>
-                        {isUser ? <p><Link to={`edit/${e.id}`}>Изменить</Link></p> : ``}
+                        {isUser ? <p><Link onClick={() => setTargetId(i)} to={`edit/${e.id}`}>Изменить</Link></p> : ``}
                     </div>
 
                 }) : <Preloader />}

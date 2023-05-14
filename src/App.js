@@ -35,7 +35,7 @@ function App() {
                 <UserPage />
               </RequireAuth>
             }>
-              <Route path="edit/:resourceId" element={<EditModal />} />
+            <Route path="edit/:resourceId" element={<EditModal />} />
               <Route path="push" element={<EditModal />} />
             </Route>
 

@@ -17,6 +17,11 @@ export const reducer = (state, { type, payload }) => {
                 ...state,
                 resources: payload
             }
+        case "SET_TARGET_ID":
+            return {
+                ...state,
+                targetId: payload
+            }
         default: return state;
     }
 }

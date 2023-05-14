@@ -7,8 +7,8 @@ import { ContextProvider } from "../../context/Context"
 
 export const EditModal = memo(function EditModal() {
     const { resourceId } = useParams();
-    const { resources, setIsLoading } = useContext(ContextProvider);
-
+    const { resources, setIsLoading, targetId } = useContext(ContextProvider);
+    
     const navigate = useNavigate()
 
     // данные из хранилища
@@ -22,15 +22,14 @@ export const EditModal = memo(function EditModal() {
 
 
     //функция удаления
-    function handleDelete() {
+    function handleDelete(e) {
         setIsLoading(true)
         const curRes = resources.find(e => e.id === Number(resourceId));
 
         //отправка DELETE-запросак API
         deleteResource(curRes).then(data => {
-
             setIsLoading(false);
-            res.splice(resources[curRes.id], 1)
+            res.splice(Number(targetId), 1)
             localStorage.setItem('resources', JSON.stringify(res));
             navigate(-1);
 
@@ -177,7 +176,7 @@ export const EditModal = memo(function EditModal() {
                         <input onClick={resourceId ? handleEdit : handlePush} className="submit-btn" type="submit" value="Сохранить" />
                     </form>
 
-                    {resourceId ? <button className="submit-btn delete" onClick={handleDelete}>Удалить</button> : ``}
+                    {resourceId ? <button id={ resourceId } className="submit-btn delete" onClick={handleDelete}>Удалить</button> : ``}
                 </div>
             </div>
         </>
