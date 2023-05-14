@@ -1,13 +1,13 @@
 import { memo, useContext, useEffect } from "react"
 import "./editmodal.css"
 import { useNavigate, useParams } from "react-router-dom"
-import { editResource } from "../../api"
+import { editResource, pushResource } from "../../api"
 import { toast } from "react-toastify"
 import { ContextProvider } from "../../context/Context"
 
 export const EditModal = memo(function EditModal() {
     const { resourceId } = useParams();
-    const { resources } = useContext(ContextProvider);
+    const { resources, setIsLoading } = useContext(ContextProvider);
 
     const navigate = useNavigate()
 
@@ -22,6 +22,7 @@ export const EditModal = memo(function EditModal() {
 
     // функция изменения конкретного элемента
     function handleEdit() {
+        setIsLoading(true)
         const [ name, year ] = document.querySelectorAll(`.input-text`);
         const [ r, g, b]  = document.querySelectorAll(`.input-range`);
 
@@ -60,6 +61,8 @@ export const EditModal = memo(function EditModal() {
                 progress: undefined,
                 theme: "dark",
             });
+
+            setIsLoading(false)
         })
 
         curRes.name = name.value;
@@ -78,7 +81,8 @@ export const EditModal = memo(function EditModal() {
     function handlePush() {
         const [ name, year ] = document.querySelectorAll(`.input-text`);
         const [ r, g, b]  = document.querySelectorAll(`.input-range`);
-        
+        setIsLoading(true)
+
         if(!name.value || !year.value) {
             toast.error('Заполните поля', {
                 position: "bottom-right",
@@ -93,14 +97,15 @@ export const EditModal = memo(function EditModal() {
             return;
         }
 
-        // добавление в хранилище значений из формы
+        pushResource(res.length + 1).then(data => {
+            // добавление в хранилище значений из формы
         localStorage.setItem(`resources`, JSON.stringify([...res, {
-            id: res.length + 1, 
+            id: data.id, 
             name: name.value, year: 
             year.value, 
             color: `rgb(${r.value}, ${g.value}, ${b.value})` }]));
 
-            toast.info(`Объект ID ${res.length + 1} добавлен`, 
+            toast.info(`Объект ID ${data.id} добавлен`, 
             {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -111,7 +116,12 @@ export const EditModal = memo(function EditModal() {
                 progress: undefined,
                 theme: "dark",
             });
-        navigate(-1)
+        navigate(-1);
+
+        setIsLoading(false)
+        })
+
+        
     }
 
     return (

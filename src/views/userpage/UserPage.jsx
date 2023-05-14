@@ -42,7 +42,7 @@ export const UserPage = () => {
             setOtherUsers([...p1.data, ...p2.data]);
         })
 
-    }, [ id])
+    }, [id])
 
 
     // блокировка 

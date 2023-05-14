@@ -51,6 +51,8 @@ const getResources = async (offset) => {
     }
 }
 
+
+// запрос к API на изменение объекта
 const editResource = async (id, name, year, color ) => {
     try {
         const response = await fetch(`https://reqres.in/api/unknown/${id}`, {
@@ -72,5 +74,28 @@ const editResource = async (id, name, year, color ) => {
     }
 }
 
-export { authUser, getUserData, getAllUsers, getResources, editResource }
+// запрос на добавление нового объекта
+
+const pushResource = async (id, name, year, color ) => {
+    try {
+        const response = await fetch(`https://reqres.in/api/unknown`, {
+            method: `POST`,
+            headers: {
+                headers: {
+                    "Content-type": "Application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    year,
+                    color
+                })
+            }
+        });
+        return response.json()
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+export { authUser, getUserData, getAllUsers, getResources, editResource, pushResource }
 

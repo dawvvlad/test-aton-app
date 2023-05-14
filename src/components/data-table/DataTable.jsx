@@ -40,7 +40,8 @@ export const DataTable = (props) => {
     }
 
     useEffect(() => {
-        // получение ресурсов из API
+        // получение ресурсов из API;
+        setCurrentPage(1);
         if(isUser) {
             getResources(currentPage).then(data => {
                 setResources(res.slice(0, res.length / 2));
