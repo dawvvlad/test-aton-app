@@ -1,7 +1,11 @@
 .edit {
     width: 70%;
     box-shadow: 0 0 5px black;
-    z-index: 100;
+    z-index: 1000;
+}
+
+.modal {
+    z-index: 1000;
 }
 
 .modal-window > span {
