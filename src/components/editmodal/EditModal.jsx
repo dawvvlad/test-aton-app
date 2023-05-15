@@ -29,7 +29,7 @@ export const EditModal = memo(function EditModal() {
         //отправка DELETE-запросак API
         deleteResource(curRes).then(data => {
             setIsLoading(false);
-            res.splice(Number(targetId), 1)
+            res.splice(res.indexOf(res.find(e => e.id === curRes.id)), 1)
             localStorage.setItem('resources', JSON.stringify(res));
             navigate(-1);
 
