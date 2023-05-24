@@ -1,5 +1,5 @@
 import { Auth } from "./views/auth/Auth";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { HomePage } from "./views/homepage/HomePage";
 import { RequireAuth } from "./hoc/RequireAuth";
 import { UserPage } from "./views/userpage/UserPage";
