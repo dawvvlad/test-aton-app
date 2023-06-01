@@ -26,7 +26,7 @@ export const Header = memo(function Header() {
             theme: "dark",
         });
 
-        navigate(`/test-aton-app/auth`)
+        navigate(`/auth`)
     }
 
     // получение данных об авторизованном пользователе для отрисовки ссылки на его страницу в header
@@ -38,8 +38,8 @@ export const Header = memo(function Header() {
 
     return (
         <header className="header">
-            <Link to="/test-aton-app"><h1>logo</h1></Link>
-            {auth_token && currentUser ? <Link to={`/test-aton-app/user/${userId}`} className="user-data">
+            <Link to="/"><h1>logo</h1></Link>
+            {auth_token && currentUser ? <Link to={`/user/${userId}`} className="user-data">
                 <img className="avatar" src={currentUser.avatar} alt="" />
                 <p>{currentUser.first_name}</p>
             </Link> : ``}

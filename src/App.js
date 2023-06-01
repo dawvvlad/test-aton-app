@@ -22,13 +22,13 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
 
           {/* Страница авторизации */}
-          <Route path="/test-aton-app/auth" element={<Auth />}>
+          <Route path="/auth" element={<Auth />}>
             <Route path="respas" element={<RestoreModal />} />
           </ Route>
           <Route path="/" element={<Layout />}>
             {/* Роут на страницу конкретного пользователя */}
 
-            <Route path="/test-aton-app/user/:id" element={
+            <Route path="/user/:id" element={
               // сначала проверяет, авторизован ли пользователь
 
               <RequireAuth>
@@ -40,7 +40,7 @@ function App() {
             </Route>
 
             {/* Роут на домашнюю страницу */}
-            <Route index path="/test-aton-app" element={
+            <Route index path="/" element={
               // сначала проверяет, авторизован ли пользователь
               <RequireAuth>
                 <HomePage />

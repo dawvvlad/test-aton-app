@@ -6,7 +6,7 @@ export const RequireAuth = ({ children }) => {
 
     // если token пользователя отсутствует - редирект на страницу авторизации
     if (!auth_token) {
-        return <Navigate to='/test-aton-app/auth' />
+        return <Navigate to='/auth' />
     }
 
     return children

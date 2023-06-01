@@ -79,7 +79,7 @@ export const UserPage = () => {
                             {otherUsers.map(e => {
                                 if (e.id !== Number(userId) && e.id !== Number(id)) {
                                     return (
-                                        <Link key={e.id} to={`/test-aton-app/user/${e.id}`}>
+                                        <Link key={e.id} to={`/user/${e.id}`}>
                                             <img src={e.avatar} alt="" />
                                             <p>{e.first_name}</p>
                                         </Link>)
